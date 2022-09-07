@@ -1,0 +1,38 @@
+package net.koreate.sec.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import net.koreate.sec.security.user.CustomUser;
+
+public class ChatHandler extends TextWebSocketHandler {
+	
+	// session/사용자id
+	private Map<WebSocketSession,String> sessionMap = new HashMap<>();
+	
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("연결됨 : "+session.getId());
+		String userName = session.getPrincipal().getName();
+		Authentication auth = (Authentication)session.getPrincipal();
+		CustomUser customUser = (CustomUser)auth.getPrincipal();
+	}
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println("연결끊김 : "+session.getId());	
+	}
+
+	
+	
+}

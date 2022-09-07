@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- interceptor-context.xml -->
+	
+	<bean id="signIn" class="net.koreate.common.interceptor.SignInInterceptor"/>
+	<bean id="createTokemt" class="net.koreate.common.interceptor.CreateTokenInterceptor"/>
+	<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/board/remove"/>
+		<bean class="net.koreate.common.interceptor.CheckTokenInterceptor"/>
+	</mvc:interceptor>
+	<mvc:interceptor>
+		<mvc:mapping path="/board/read"/>
+		<ref bean="createTokemt"/>
+	</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/user/*"/>
+			
+			<!-- <mvc:exclude-mapping path="/user/signUp"/>
+			<mvc:exclude-mapping path="/user/signIn"/>
+			<mvc:exclude-mapping path="/user/signUpPost"/>
+			<mvc:exclude-mapping path="/user/signInPost"/>
+			<mvc:exclude-mapping path="/user/signOut"/> -->
+			
+			<bean class="net.koreate.common.interceptor.CheckCookieInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/signInPost"/>
+			<ref bean="signIn"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/signUpPost"/>
+			<bean class="net.koreate.common.interceptor.SignUpInterceptor"/>
+		</mvc:interceptor>	
+	</mvc:interceptors>
+	
+</beans>

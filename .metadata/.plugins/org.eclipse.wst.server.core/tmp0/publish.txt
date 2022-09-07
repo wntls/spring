@@ -1,0 +1,9 @@
+#Tomcat publish data
+#Mon Aug 29 17:25:20 KST 2022
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\wntls\\.m2\\repository\\org\\springframework\\spring-web\\5.3.21\\spring-web-5.3.21.jar=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part14_use_member\\WEB-INF\\lib\\spring-web-5.3.21.jar
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\wntls\\.m2\\repository\\org\\springframework\\spring-web\\5.3.22\\spring-web-5.3.22.jar=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\project-betty\\WEB-INF\\lib\\spring-web-5.3.22.jar
+org.eclipse.jst.jee.server\:mvc_part14_use_member=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part14_use_member
+org.eclipse.jst.jee.server\:project-betty=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\project-betty
+org.eclipse.jst.jee.server\:mvc_part15_file_control=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part15_file_control
+org.eclipse.jst.jee.server\:mvc_part13_interceptor=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part13_interceptor
+org.eclipse.jst.jee.server\:mvc_part03_di_ioc=C\:\\Users\\wntls\\Desktop\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\mvc_part03_di_ioc

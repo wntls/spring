@@ -1,0 +1,58 @@
+package net.koreate.sec.service;
+
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
+import net.koreate.sec.dao.MemberDAO;
+import net.koreate.sec.vo.AuthDTO;
+import net.koreate.sec.vo.ValidationMemberVO;
+@Service
+@RequiredArgsConstructor
+public class MemberServiceImpl implements MemberService {
+
+	private final MemberDAO dao;
+	private final PasswordEncoder encoder;
+	
+	@Transactional
+	@Override
+	public void memberJoin(ValidationMemberVO vo) throws Exception {
+		String u_pw = vo.getU_pw();
+		System.out.println("암호화 전 : "+ u_pw);
+		vo.setU_pw(encoder.encode(u_pw));
+		System.out.println("암호화 후 : "+ vo.getU_pw());
+		dao.memberJoin(vo);
+		// 일반회원 권한 부여
+		dao.insertAuth(vo.getU_id());
+	}
+
+	@Override
+	public boolean getMemberByID(String u_id) throws Exception {
+		return dao.getMemberByID(u_id) == null ? true : false;
+	}
+
+	@Override
+	public void updateVisteDate(String u_id) throws Exception {
+		dao.updateVistDate(u_id);
+	}
+
+	@Override
+	public void deleteYN(ValidationMemberVO vo) throws Exception {
+
+	}
+
+	@Override
+	public List<AuthDTO> updateAuth(AuthDTO vo) throws Exception {
+		return null;
+	}
+
+	@Override
+	public List<ValidationMemberVO> getMemberList() throws Exception {
+		List<ValidationMemberVO> vo = dao.getMemberList(); 
+		return vo;
+	}
+
+}

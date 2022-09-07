@@ -1,0 +1,29 @@
+package net.koreate.se;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:root/root-context.xml","classpath:security/security-context.xml"})
+public class MemberTest {
+	
+	@Autowired
+	PasswordEncoder encoder;
+	
+	@Test
+	public void passwordEncoder() throws Exception{
+		String u_pw = "qkrwntls1!";
+		String encode = encoder.encode(u_pw);
+		System.out.println("암호화 전 : "+u_pw);
+		// 암호화 후 : $2a$10$TS2qcMdvA/DgjPLcFi/mse2oFd8fbSkZBL0T8zldFnQrMInzvO49a
+		// 암호화 후 : $2a$10$glxzwYZpTOewhvQ3sX61IuboaaWTYSNbhdXeEfRJHH1b49tMFP0K2
+		System.out.println("암호화 후 : "+encode);
+		System.out.println(encode.equals("$2a$10$TS2qcMdvA/DgjPLcFi/mse2oFd8fbSkZBL0T8zldFnQrMInzvO49a"));
+		System.out.println(encoder.matches("qkrwntls1!", "$2a$10$glxzwYZpTOewhvQ3sX61IuboaaWTYSNbhdXeEfRJHH1b49tMFP0K2"));
+	}
+
+}

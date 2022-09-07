@@ -1,0 +1,45 @@
+package net.koreate.sec.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import net.koreate.sec.security.user.CustomUser;
+import net.koreate.sec.vo.ValidationMemberVO;
+
+public class ChatHandler extends TextWebSocketHandler {
+	
+	// session/사용자id
+	private Map<WebSocketSession,String> sessionMap = new HashMap<>();
+	
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("연결됨 : "+session.getId());
+		String userName = session.getPrincipal().getName();
+		Authentication auth = (Authentication)session.getPrincipal();
+		CustomUser customUser = (CustomUser)auth.getPrincipal();
+		ValidationMemberVO vo = customUser.getMember();
+		System.out.println(vo);
+		sessionMap.put(session, userName);
+	}
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		// client 에서 전달된 문자열 메세지 정보
+		String msg = message.getPayload();
+		System.out.println(msg);
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println("연결끊김 : "+session.getId());	
+	}
+
+	
+	
+}
